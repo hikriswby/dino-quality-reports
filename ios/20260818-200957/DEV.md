@@ -2,30 +2,48 @@
 
 每条都尽量回答：类型、打开哪、建议动作。
 
-## 行为回归失败
+## 行为回归
 
-### `home-chat-hub`
+通过，无失败断言需要修。探活/重试失败不算产品问题。
 
-- 类型：产品或用例契约
-- 断言/错误：`{'type': 'assertion', 'message': "Element not visible: text='课堂' (cause: context deadline exceeded: no elements match selector)"}`
-- 建议：对照 flow `/Users/dino/ios-quality/flows-real/home/home-chat-hub.yaml` 与截图，确认是页面改了还是产品 bug。
+`home-chat-hub` 中间超时（文案「课堂」）和 WDA `localhost:8266` connection reset 已重试通过，**不是**套件最终失败。
 
+## 采集盲区（≠ 产品健康）
 
-![fail](evidence/home-chat-hub-0.png)
+未采到的页面**不能判定**，也**不能**用冷启动/整机 CPU 代替。
+这不是「跑批降级所以没问题」，是该页性能未知。
 
-### `home-chat-hub`
+- Play CPU峰值 **未采到**（连续至少 2 次，**Play 页性能是盲区**；attach 失败。冷启动/整机 CPU 不能代替该页）
 
-- 类型：产品或用例契约
-- 断言/错误：`{'type': 'network', 'message': 'Failed to create session for app: com.prime.dino.english (cause: failed to create session: Post "http://localhost:8266/session": read tcp [::1]:59873->[::1]:8266: read: connection reset by peer)'}`
-- 建议：对照 flow `/Users/dino/ios-quality/flows-real/home/home-chat-hub.yaml` 与截图，确认是页面改了还是产品 bug。
+同日 `20260818-191304` 同样没有 `page-play.metrics.json`。
 
 ## 跑批本身（质量机）
 
 - 性能体检·页面[play]：exit 1
+- 页面性能盲区：Play
+- 中间失败已重试通过：`home-chat-hub`
 
 上质量机看 `/Users/dino/ios-quality/reports/quality-run/20260818-200957/run.log`。
 
 ## 健康度数字
 
-见卡片「本次 vs 上次」。原始 JSON 在 `perf/*.metrics.json`。
+见卡片「本次 vs 上次」。同条件相邻差（191304→200957）在实测 floor 内，记波动，不标红。
 
+| 指标 | 上次 191304 | 本次 | 判定 |
+|---|---|---|---|
+| CPU峰值 | 106.1% | 107.7% | 波动 +1.6（floor 8） |
+| CPU均值 | 18.4% | 22.2% | 波动 +3.8（floor 5） |
+| 内存峰值 | 82.1MiB | 82.8MiB | 波动 +0.7（floor 5） |
+| Chat CPU峰值 | 16.4% | 20.4% | 波动 +4.0（floor 6） |
+| Class CPU峰值 | 8.0% | 11.8% | 波动 +3.8（floor 6） |
+| Explore CPU峰值 | 8.2% | 7.8% | 波动 -0.4（floor 6） |
+| Play CPU峰值 | 未采到 | 未采到 | 盲区，不能判定 |
+
+原始 JSON 在 `perf/*.metrics.json`。
+
+---
+
+- 本轮没有需要改产品代码的项。健康度看卡片「本次 vs 上次」。
+- **采集盲区** · Play 页未采到，该页性能未知（不是产品失败，也不能当健康）。
+
+完整证据见 [DEV.md](./DEV.md)。

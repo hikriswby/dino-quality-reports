@@ -2,17 +2,32 @@
 
 ## 给开发（先看这个）
 
-- **行为回归失败** · `home-chat-hub` · `{'type': 'assertion', 'message': "Element not visible: text='课堂' (cause: context deadline exceeded: no elements match selector)"}`
-- **行为回归失败** · `home-chat-hub` · `{'type': 'network', 'message': 'Failed to create session for app: com.prime.dino.english (cause: failed to create session: Post "http://localhost:8266/session":`
+- 本轮没有需要改产品代码的项。健康度看卡片「本次 vs 上次」。
+- **采集盲区** · Play 页未采到，该页性能未知（不是产品失败，也不能当健康）。
 
 完整证据见 [DEV.md](./DEV.md)。
-
 
 - 结论：🟢 GREEN
 - 平台/设备：真机 iPhone X (真机) · 版本 1.5.2
 - 分支/提交：dev-1.5.2 @ 5b83fc07 · 套件 logged-in
 - 行为回归：通过 17 / 失败 0
-- 性能体检：9/11 项采集成功（1 项降级）（1 项跳过）
+- 性能体检：9/11 项采集成功（盲区：Play 页未采到，不能用整机 CPU 代替）（1 项跳过）
+
+## 采集盲区（≠ 产品健康）
+
+未采到的页面不能判定，也不能用冷启动/整机 CPU 代替。
+
+- Play CPU峰值 **未采到**（连续至少 2 次，**Play 页性能是盲区**；attach 失败）
+
+## 性能指标（本次 vs 上次；样本不足 n=1，噪声带用实测 floor）
+
+- CPU峰值 107.7% (波动 +1.6, 上次 106.1)
+- CPU均值 22.2% (波动 +3.8, 上次 18.4)
+- 内存峰值 82.8MiB (波动 +0.7, 上次 82.1)
+- Chat CPU峰值 20.4% (波动 +4.0, 上次 16.4)
+- Class CPU峰值 11.8% (波动 +3.8, 上次 8.0)
+- Explore CPU峰值 7.8% (波动 -0.4, 上次 8.2)
+- Play CPU峰值 **未采到**（不能判定该页）
 
 ## 步骤
 
