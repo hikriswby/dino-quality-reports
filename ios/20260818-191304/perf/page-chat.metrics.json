@@ -1,0 +1,10 @@
+{
+  "label": "页面[chat]",
+  "samples": 89,
+  "cpu_percent_max": 16.4,
+  "cpu_percent_avg": 1.2,
+  "mem_mib_max": 44.4,
+  "mem_mib_avg": 44.1,
+  "disk_read_mb_total": 4699.6,
+  "disk_write_mb_total": 58.4
+}

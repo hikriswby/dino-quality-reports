@@ -1,0 +1,10 @@
+{
+  "label": "页面[explore]",
+  "samples": 89,
+  "cpu_percent_max": 8.2,
+  "cpu_percent_avg": 1.3,
+  "mem_mib_max": 44.4,
+  "mem_mib_avg": 44.3,
+  "disk_read_mb_total": 3385.8,
+  "disk_write_mb_total": 46.0
+}

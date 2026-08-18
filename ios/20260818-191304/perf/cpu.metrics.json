@@ -1,0 +1,10 @@
+{
+  "label": "cpu-冷启动",
+  "samples": 59,
+  "cpu_percent_max": 106.1,
+  "cpu_percent_avg": 18.4,
+  "mem_mib_max": 82.1,
+  "mem_mib_avg": 76.3,
+  "disk_read_mb_total": 80.6,
+  "disk_write_mb_total": 5.6
+}
