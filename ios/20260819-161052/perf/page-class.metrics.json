@@ -1,0 +1,10 @@
+{
+  "label": "页面[class]",
+  "samples": 89,
+  "cpu_percent_max": 8.9,
+  "cpu_percent_avg": 1.1,
+  "mem_mib_max": 55.7,
+  "mem_mib_avg": 55.4,
+  "disk_read_mb_total": 5369.4,
+  "disk_write_mb_total": 63.4
+}
