@@ -1,0 +1,6 @@
+
+Waiting for flows to complete...
+[Failed] smoke-app-launch (24s) (Assertion is false: id: .*btn_get_started.* is visible)
+
+1/1 Flow Failed
+
