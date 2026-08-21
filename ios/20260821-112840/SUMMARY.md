@@ -5,6 +5,7 @@
 - 本轮没有需要改产品代码的项。健康度看卡片「本次 vs 上次」。
 
 完整证据见 [DEV.md](./DEV.md)。
+- AI 审查（不改色）：[DIAGNOSIS.md](./DIAGNOSIS.md)
 
 - 结论：🟢 GREEN
 - 平台/设备：真机 iPhone X · 版本 1.5.2
@@ -57,3 +58,13 @@
 | 性能体检·帧率 | OK | 85 | Hitch 0.0ms/s ×0 |
 | 性能体检·内存图 | OK | 33 | 内存图峰值209.9MiB 泄漏126 根链384B(CFString) |
 
+---
+
+## AI 审查（不改卡片颜色）
+
+完整诊断见 [DIAGNOSIS.md](./DIAGNOSIS.md)。不作为红黄绿依据。
+
+- **页面级写盘 70-115MB/页，疑似 Lottie 缓存 touch 与原子写放大** · perf · 置信度 medium
+- **泄漏 126 根链，root 为 CFString 384B** · leak · 置信度 medium
+- **LottieFileCache URLSession 闭包未全部弱引用** · leak · 置信度 medium
+- 还缺：页面级写盘的具体文件分布与调用栈；CFString 0x126a58000 的分配栈
