@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "usable": true,
+  "schema": "hitches-summary",
+  "hitch_count": 0,
+  "hitch_total_ms": 0.0,
+  "window_s": 45.48048,
+  "hitch_time_ratio_ms_s": 0.0,
+  "export_had_schema": true,
+  "export_had_rows": false,
+  "toc": {
+    "template": "Animation Hitches",
+    "duration_s": 45.48048,
+    "has_hitches_summary": true
+  },
+  "note": "窗口内无 hitch（完整保存后 0 行）"
+}

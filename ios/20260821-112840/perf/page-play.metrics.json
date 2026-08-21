@@ -1,0 +1,10 @@
+{
+  "label": "页面[play]",
+  "samples": 87,
+  "cpu_percent_max": 7.9,
+  "cpu_percent_avg": 1.2,
+  "mem_mib_max": 58.9,
+  "mem_mib_avg": 58.7,
+  "disk_read_mb_total": 5201.5,
+  "disk_write_mb_total": 70.0
+}

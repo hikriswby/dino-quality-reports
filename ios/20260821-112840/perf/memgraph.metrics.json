@@ -1,0 +1,35 @@
+{
+  "label": "memgraph",
+  "pid": 93703,
+  "leak_count": 126,
+  "leak_bytes": 30352,
+  "footprint_mib": 209.9,
+  "footprint_peak_mib": 214.8,
+  "retained_total_mib": 150.0,
+  "root_count": 1,
+  "root_retained_mib": 0.0003662109375,
+  "root_desc": "CFString 0x126a58000",
+  "top_classes": [
+    {
+      "count": 53172,
+      "bytes": 3637952,
+      "class": "CFString",
+      "type": "ObjC",
+      "binary": "CoreFoundation"
+    },
+    {
+      "count": 18102,
+      "bytes": 2622080,
+      "class": "malloc",
+      "type": "in",
+      "binary": "new(unsigned"
+    },
+    {
+      "count": 7489,
+      "bytes": 479296,
+      "class": "NSMutableArray",
+      "type": "ObjC",
+      "binary": "CoreFoundation"
+    }
+  ]
+}
