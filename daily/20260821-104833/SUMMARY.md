@@ -5,14 +5,13 @@
 - **存量泄漏** · `com.prime.dino.english.feature.onboarding.impl.ui.welcome.WelcomeActivity` 被持有 · 约 21.2 MB · 证据 [shark-leak.txt](evidence/shark-leak.txt) · 打开 `core/common/src/main/java/com/prime/dino/english/core/common/lifecycle/ForeBackStatusUtils.java`
 
 完整证据与引用链见 [DEV.md](./DEV.md)。
+- AI 审查（不改色）：[DIAGNOSIS.md](./DIAGNOSIS.md)
 
 ## 结论：🟡 YELLOW
 
 - 告警等级：`ALERT`
 - 等级定义：`BLOCK`=需要阻断/立刻处理，`ALERT`=可继续但需关注，`INFO`=通过
 
-- 远端 SHA 未变，本轮跳过全量（只探登录态）
-- 有降级步骤：登录态自检、登录态注入、登录态自检(注入后)
 - 性能维度有风险项：APK体积、内存+Heap
 
 | 项 | 值 |
@@ -53,7 +52,7 @@
 
 ## Flaky 滚动台账
 
-- 窗口：最近 **14** 天，样本 **8** 次（含本次）
+- 窗口：最近 **14** 天，样本 **6** 次（含本次）
 - 当前 flaky：**0**（新增 0 / 持续 0 / 消失 0）
 - 本窗口内无 flaky 变化
 
@@ -94,18 +93,15 @@
 - 本次跑批：`/Users/dino/dino-quality/reports/quality-run/20260821-104833/`（run.log、build.log、e2e.log、perf.log）
 - 趋势台账：`reports/perf-baseline/perf-trend.csv`
 
-
 ---
 
-## 🤖 AI 根因分析
+## AI 审查（不改卡片颜色）
 
-| 维度 | 结论 |
-|---|---|
-| 类型 | `infra_env` |
-| 置信度 | high |
-| 根因 | 登录态注入步骤失败，导致登录态自检未通过，但后续 Google 登录成功且行为回归全部通过，表明是测试环境/工具问题而非产品缺陷。 |
-| 建议 | 检查登录态注入工具（如 ADB 或 Maestro 的 inputText）在 Android 17 上的兼容性，更新注入方式或使用备用方案；同时确认测试账号的登录态文件是否有效。 |
+完整诊断见 [DIAGNOSIS.md](./DIAGNOSIS.md)。不作为红黄绿依据。
 
-**摘要**：本次跑批整体通过，E2E 17/17 全绿，无崩溃和 flaky。但登录态注入步骤失败，导致登录态自检未通过，属于测试环境/工具问题（输入法注入在 Android 17 上可能失效），非产品缺陷。建议修复登录态注入工具后重跑。
-
-_由 DeepSeek (deepseek-chat) 自动生成，仅供参考_
+- **WelcomeActivity 被 CredentialManager$GetCredentialTransport 持有导致 21.2MB 泄漏** · leak · 置信度 high
+- **ForeBackStatusUtils$1.delaySendRun 捕获 SplashActivity 导致 1.9MB 泄漏** · leak · 置信度 high
+- **LocalizationManager 主线程 runBlocking 读取 DataStore 有 ANR 风险** · anr_risk · 置信度 medium
+- **APK 体积 67.8MB 触发 WARN，需确认是否含 debug 膨胀** · perf · 置信度 medium
+- **内存增长 16MB/2.31% 触发 WARN，与两处泄漏相关** · perf · 置信度 medium
+- 还缺：LoginAccountFragment 中 Google signIn 的调用上下文（协程作用域、是否在 onDestroy 时取消）；ForeBackStatusUtils 的 LISTENERS 中 RemoteLanguageCoordinator.foregroundListener 是否在 App 销毁时移除；AuthTokenStorage/AccountPreferenceStorage 中 runBlocking 是否在主线程执行

@@ -97,3 +97,4 @@ Signature: f5ef01864f361ac99918b9e88f300106048d999e
 - **存量泄漏** · `com.prime.dino.english.feature.onboarding.impl.ui.welcome.WelcomeActivity` 被持有 · 约 21.2 MB · 证据 [shark-leak.txt](evidence/shark-leak.txt) · 打开 `core/common/src/main/java/com/prime/dino/english/core/common/lifecycle/ForeBackStatusUtils.java`
 
 完整证据与引用链见 [DEV.md](./DEV.md)。
+- AI 审查（不改色）：[DIAGNOSIS.md](./DIAGNOSIS.md)
